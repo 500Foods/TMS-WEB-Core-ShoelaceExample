@@ -48,7 +48,7 @@ end;
 
 procedure TForm1.MyColorPickerChanged(hexacolor: String);
 begin
-  ColorLabel.HTML := 'Color Selected: <br />'+hexacolor;
+  ColorLabel.Caption := hexacolor;
 end;
 
 procedure TForm1.MySwitchChanged(switchstate: Boolean);
@@ -102,7 +102,8 @@ begin
       '#A0A0A0':'Gray 160',
       'silver':'Gray 192 (Silver)',
       '#E0E0E0':'Gray 224',
-      'white':'Gray 255 (white)',
+      'white':'White',
+
       'black':'Black',
       'gold':'Gold',
       'pink':'Pink',
@@ -130,6 +131,7 @@ begin
   // Link Color Picker to Delphi function
   asm
     mycolorpicker.addEventListener("sl-change", event => {
+    console.log('change');
       this.MyColorPickerChanged(event.target.getFormattedValue('hexa'));
     });
   end;

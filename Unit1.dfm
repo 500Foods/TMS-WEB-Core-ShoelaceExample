@@ -32,6 +32,7 @@ object Form1: TForm1
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'Color Picker'
+    ElementID = 'ColorLabel'
     HeightPercent = 100.000000000000000000
     WidthPercent = 100.000000000000000000
   end
