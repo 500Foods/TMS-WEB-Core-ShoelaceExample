@@ -83,16 +83,6 @@ begin
 
   // Add Color Picker swatches
   asm
-//    mycolorpicker.swatches = [
-//      '#202020','#404040','#606060','#808080','#A0A0A0','#C0C0C0','#E0E0E0', '#FFFFFF',
-//      '#200000','#400000','#600000','#800000','#A00000','#C00000','#E00000', '#FF0000',
-//      '#002000','#004000','#006000','#008000','#00A000','#00C000','#00E000', '#00FF00',
-//      '#000020','#000040','#000060','#000080','#0000A0','#0000C0','#0000E0', '#0000FF',
-//      '#200020','#400040','#600060','#800080','#A000A0','#C000C0','#E000E0', '#FF00FF',
-//      '#202000','#404000','#606000','#808000','#A0A000','#C0C000','#E0E000', '#FFFF00',
-//      'black','red','orange','yellow','green','blue','indigo','violet'
-//    ];
-
     mycolorpicker.swatches = [
       '#202020','#404040','#606060','gray',  '#A0A0A0','silver', '#E0E0E0', 'white',
       '#200000','#400000','#600000','maroon','#A00000','#C00000','#E00000', 'red',
@@ -103,17 +93,33 @@ begin
       '#002020','#004040','#006060','teal',  '#00A0A0','#00C0C0','#00E0E0', 'aqua',
       'black',  'gold',   'pink',   'orange','tomato', 'brown', 'deepskyblue','royalblue'
     ];
-  end;
 
-  // Add Tooltips
-  asm
+    var swatch_names = {
+      '#202020':'Gray 32',
+      '#404040':'Gray 64',
+      '#606060':'Gray 96',
+      'silver':'Gray 128 (Gray)',
+      '#A0A0A0':'Gray 160',
+      'silver':'Gray 192 (Silver)',
+      '#E0E0E0':'Gray 224',
+      'white':'Gray 255 (white)',
+      'black':'Black',
+      'gold':'Gold',
+      'pink':'Pink',
+      'orange':'Orange',
+      'tomato':'Tomato',
+      'brown':'Brown',
+      'deepskyblue':'Deep Sky Blue',
+      'royalblue':'Royal Blue'
+    };
+
     setTimeout(function() {
       var picker = mycolorpicker.shadowRoot;
       var swatches = picker.querySelectorAll('.color-picker__swatch');
       swatches.forEach(swatch => {
         var parent = swatch.parentNode;
         var tooltip = document.createElement('sl-tooltip');
-        tooltip.content = swatch.ariaLabel;
+        tooltip.content = swatch_names[swatch.ariaLabel] || swatch.ariaLabel;
         parent.replaceChild(tooltip, swatch);
         tooltip.appendChild(swatch);
       })
