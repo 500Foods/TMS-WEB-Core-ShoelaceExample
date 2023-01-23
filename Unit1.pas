@@ -48,7 +48,7 @@ end;
 
 procedure TForm1.MyColorPickerChanged(hexacolor: String);
 begin
- ColorLabel.HTML := 'Color Selected: <br />'+hexacolor;
+  ColorLabel.HTML := 'Color Selected: <br />'+hexacolor;
 end;
 
 procedure TForm1.MySwitchChanged(switchstate: Boolean);
