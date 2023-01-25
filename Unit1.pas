@@ -15,10 +15,10 @@ type
     WebLabel2: TWebLabel;
     WebHTMLDiv3: TWebHTMLDiv;
     ColorLabel: TWebLabel;
-    [async]
     WebLabel4: TWebLabel;
     WebHTMLDiv4: TWebHTMLDiv;
-    WebLabel5: TWebLabel; procedure WebFormCreate(Sender: TObject);
+    WebLabel5: TWebLabel;
+    [async] procedure WebFormCreate(Sender: TObject);
     procedure MyButtonClick(event: JSValue);
     procedure MySwitchChanged(switchstate: Boolean);
     procedure MyColorPickerChanged(hexacolor: String);
@@ -83,26 +83,80 @@ begin
 
   // Add Color Picker swatches
   asm
-    mycolorpicker.swatches = [
-      '#202020','#404040','#606060','gray',  '#A0A0A0','silver', '#E0E0E0', 'white',
-      '#200000','#400000','#600000','maroon','#A00000','#C00000','#E00000', 'red',
-      '#002000','#004000','#006000','green', '#00A000','#00C000','#00E000', 'lime',
-      '#000020','#000040','#000060','navy',  '#0000A0','#0000C0','#0000E0', 'blue',
-      '#200020','#400040','#600060','purple','#A000A0','#C000C0','#E000E0', 'fuchsia',
-      '#202000','#404000','#606000','olive', '#A0A000','#C0C000','#E0E000', 'yellow',
-      '#002020','#004040','#006060','teal',  '#00A0A0','#00C0C0','#00E0E0', 'aqua',
-      'black',  'gold',   'pink',   'orange','tomato', 'brown', 'deepskyblue','royalblue'
-    ];
+//    mycolorpicker.swatches = [
+//      '#202020','#404040','#606060','gray',  '#A0A0A0','silver', '#E0E0E0', 'white',
+//      '#200000','#400000','#600000','maroon','#A00000','#C00000','#E00000', 'red',
+//      '#002000','#004000','#006000','green', '#00A000','#00C000','#00E000', 'lime',
+//      '#000020','#000040','#000060','navy',  '#0000A0','#0000C0','#0000E0', 'blue',
+//      '#200020','#400040','#600060','purple','#A000A0','#C000C0','#E000E0', 'fuchsia',
+//      '#202000','#404000','#606000','olive', '#A0A000','#C0C000','#E0E000', 'yellow',
+//      '#002020','#004040','#006060','teal',  '#00A0A0','#00C0C0','#00E0E0', 'aqua',
+//      'black',  'gold',   'pink',   'orange','tomato', 'brown', 'deepskyblue','royalblue'
+//    ];
 
     var swatch_names = {
       '#202020':'Gray 32',
       '#404040':'Gray 64',
       '#606060':'Gray 96',
-      'silver':'Gray 128 (Gray)',
+      '#808080':'Gray 128 (Gray)',
       '#A0A0A0':'Gray 160',
-      'silver':'Gray 192 (Silver)',
+      '#C0C0C0':'Gray 192 (Silver)',
       '#E0E0E0':'Gray 224',
-      'white':'White',
+      '#FFFFFF':'White',
+
+      '#200000':'#200000',
+      '#400000':'#400000',
+      '#600000':'#600000',
+      '#800000':'Maroon',
+      '#A00000':'#A00000',
+      '#C00000':'#C00000',
+      '#E00000':'#E00000',
+      '#FF0000':'Red',
+
+      '#002000':'#002000',
+      '#004000':'#004000',
+      '#006000':'#006000',
+      '#008000':'Green',
+      '#00A000':'#00A000',
+      '#00C000':'#00C000',
+      '#00E000':'#00E000',
+      '#00FF00':'Lime',
+
+      '#000020':'#000020',
+      '#000040':'#000040',
+      '#000060':'#000060',
+      '#000080':'Navy',
+      '#0000A0':'#0000A0',
+      '#0000C0':'#0000C0',
+      '#0000E0':'#0000E0',
+      '#0000FF':'Blue',
+
+      '#200020':'#200020',
+      '#400040':'#400040',
+      '#600060':'#600060',
+      '#800080':'Purple',
+      '#A000A0':'#A000A0',
+      '#C000C0':'#C000C0',
+      '#E000E0':'#E000E0',
+      '#FF00FF':'Fuchsia',
+
+      '#202000':'#202000',
+      '#404000':'#404000',
+      '#606000':'#606000',
+      '#808000':'Olive',
+      '#A0A000':'#A0A000',
+      '#C0C000':'#C0C000',
+      '#E0E000':'#E0E000',
+      '#FFFF00':'Yellow',
+
+      '#002020':'#002020',
+      '#004040':'#004040',
+      '#006060':'#006060',
+      '#008080':'Teal',
+      '#00A0A0':'#00A0A0',
+      '#00C0C0':'#00C0C0',
+      '#00E0E0':'#00E0E0',
+      '#00FFFF':'Aqua',
 
       'black':'Black',
       'gold':'Gold',
@@ -114,17 +168,19 @@ begin
       'royalblue':'Royal Blue'
     };
 
-    setTimeout(function() {
-      var picker = mycolorpicker.shadowRoot;
-      var swatches = picker.querySelectorAll('.color-picker__swatch');
-      swatches.forEach(swatch => {
-        var parent = swatch.parentNode;
-        var tooltip = document.createElement('sl-tooltip');
-        tooltip.content = swatch_names[swatch.ariaLabel] || swatch.ariaLabel;
-        parent.replaceChild(tooltip, swatch);
-        tooltip.appendChild(swatch);
+    customElements.whenDefined('sl-color-picker').then(() => {
+      mycolorpicker.swatches = Object.keys(swatch_names);
+      mycolorpicker.updateComplete.then(() => {
+        var swatches = mycolorpicker.shadowRoot.querySelectorAll('[part~="swatch"]');
+        swatches.forEach(swatch => {
+          var parent = swatch.parentNode;
+          var tooltip = document.createElement('sl-tooltip');
+          tooltip.content = swatch_names[swatch.ariaLabel] || swatch.ariaLabel;
+          parent.replaceChild(tooltip, swatch);
+          tooltip.appendChild(swatch);
+        })
       })
-    },2000);
+    });
   end;
 
 
