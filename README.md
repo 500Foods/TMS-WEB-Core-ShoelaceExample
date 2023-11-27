@@ -10,17 +10,17 @@ More information about this repository can be found in the related TMS Software 
 [![Count Lines of Code](https://github.com/500Foods/TMS-WEB-Core-ShoelaceExample/actions/workflows/main.yml/badge.svg)](https://github.com/500Foods/TMS-WEB-Core-ShoelaceExample/actions/workflows/main.yml)
 <!--CLOC-START -->
 ```
-Last Updated at 2023-11-27 01:52:22 UTC
+Last Updated at 2023-11-27 02:46:11 UTC
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Pascal                           2             48             62            160
-Delphi Form                      1              0              0             39
-Markdown                         1              8              2             39
-YAML                             2             11             13             33
-HTML                             2              7              0             23
+Delphi Form                      1              6             41            180
+Pascal                           2             30             95             87
+HTML                             2              2              0             33
+YAML                             2              8             12             33
+Markdown                         1              4              2             23
 -------------------------------------------------------------------------------
-SUM:                             8             74             77            294
+SUM:                             8             50            150            356
 -------------------------------------------------------------------------------
 ```
 <!--CLOC-END-->
